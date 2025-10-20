@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard</title>
+        <link rel="stylesheet" href="style.css">
+    
+<script src ="script.js">
+
+</script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo" onclick="showPage('home')">
+                <div class="logo-icon">C</div>
+                <span style="font-weight: 600;">Codename.com</span>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-item" onclick="showPage('starred')">⭐ Starred</div>
+                <div class="menu-item" onclick="showPage('recent')">🕐 Recent</div>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-header" onclick="toggleSubmenu(this)">
+                    Sales list
+                    <span>›</span>
+                </div>
+                <div class="submenu">
+                    <div class="menu-item" onclick="showPage('goals')">Goals</div>
+                    <div class="menu-item" onclick="showPage('dashboard')">Dashboard</div>
+                </div>
+                
+                <div class="menu-header" onclick="toggleSubmenu(this)" style="margin-top: 12px;">
+                    Codename
+                    <span onclick="event.stopPropagation(); openAddModal()">+</span>
+                </div>
+                <div class="submenu">
+                    <div class="menu-item" onclick="showPage('shared')">Shared with me</div>
+                    <div class="menu-item" onclick="showPage('cargo')">Cargo2go</div>
+                    <div class="menu-item" onclick="showPage('cloudz')">
+                        Cloudz3r
+                        <span class="badge">2</span>
+                    </div>
+                    <div class="menu-item" onclick="showPage('idiomp')">Idiomp</div>
+                    <div class="menu-item" onclick="showPage('syllables')">Syllables</div>
+                    <div class="menu-item" onclick="showPage('xob')">X-0b</div>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-header" onclick="toggleSubmenu(this)">
+                    Reports
+                    <span onclick="event.stopPropagation(); openAddModal()">+</span>
+                </div>
+                <div class="submenu">
+                    <div class="menu-item" onclick="showPage('share-reports')">Share with me</div>
+                    <div class="menu-item" onclick="showPage('deals-user')">Deals by user</div>
+                    <div class="menu-item" onclick="showPage('deal-duration')">Deal duration</div>
+                </div>
+
+                <div class="menu-header" onclick="toggleSubmenu(this)" style="margin-top: 12px;">
+                    My reports
+                    <span>›</span>
+                </div>
+                <div class="submenu">
+                    <div class="menu-item" onclick="showPage('emails')">Emails received</div>
+                    <div class="menu-item" onclick="showPage('deal-duration2')">Deal duration</div>
+                    <div class="menu-item active" onclick="showPage('new-report')">New report</div>
+                    <div class="menu-item" onclick="showPage('analytics')">
+                        Analytics
+                        <span class="badge">2</span>
+                    </div>
+                    <div class="menu-item" style="color: #999;" onclick="showPage('manage-folders')">📁 Manage folders</div>
+                </div>
+            </div>
+
+            <div class="icon-btn" onclick="openQuickStats()">📊</div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="search-bar">
+                    <input type="text" placeholder='Try searching "insights"' id="searchInput">
+                </div>
+            </div>
+
+            <div class="content-area">
+                <!-- New Report Page (Default) -->
+                <div id="new-report" class="page-container active">
+                    <div class="report-header">
+                        <div>
+                            <div class="user-chips">
+                                <button class="add-btn" onclick="openAddUserModal()">+</button>
+                                <div class="user-chip" onclick="viewUserProfile('Armin')">
+                                    <div class="user-avatar" style="background: #8b5cf6;"></div>
+                                    <span>Armin A.</span>
+                                </div>
+                                <div class="user-chip" onclick="viewUserProfile('Eron')">
+                                    <div class="user-avatar" style="background: #f59e0b;"></div>
+                                    <span>Eron Y.</span>
+                                </div>
+                                <div class="user-chip" onclick="viewUserProfile('Mikasa')">
+                                    <div class="user-avatar" style="background: #06b6d4;"></div>
+                                    <span>Mikasa A.</span>
+                                </div>
+                                <button class="add-btn" onclick="openOptionsMenu()">⋯</button>
+                            </div>
+                            <h1 class="report-title">New report</h1>
+                        </div>
+                        <div class="toggle-switch" id="timerToggle" onclick="toggleTimer()"></div>
+                    </div>
+
+                    <div class="revenue-section">
+                        <div class="revenue-title">Revenue</div>
+                        <div class="revenue-amount">
+                            $528,976<span class="amount-cents">.82</span>
+                            <div class="amount-change">
+                                <span class="change-badge positive">↓7.9%</span>
+                                <span class="change-badge">$27,335.09</span>
+                            </div>
+                        </div>
+                        <div class="revenue-meta" onclick="showDateRangePicker()">vs prev. $501,641.73  Jun 1 - Aug 31, 2023 ›</div>
+                        
+                        <div class="contributors">
+                            <div class="contributor" onclick="viewContributorDetails('Armin')">
+                                <div class="contributor-avatar" style="background: #8b5cf6;"></div>
+                                <div>
+                                    <div class="contributor-amount">$209,633</div>
+                                    <div class="contributor-percent">39.63%</div>
+                                </div>
+                            </div>
+                            <div class="contributor" onclick="viewContributorDetails('Mikasa')">
+                                <div class="contributor-avatar" style="background: #06b6d4;"></div>
+                                <div>
+                                    <div class="contributor-amount">$156,841</div>
+                                    <div class="contributor-percent">29.65%</div>
+                                </div>
+                            </div>
+                            <div class="contributor" onclick="viewContributorDetails('Eren')">
+                                <div class="contributor-avatar" style="background: #f59e0b;"></div>
+                                <div>
+                                    <div class="contributor-amount">$117,115</div>
+                                    <div class="contributor-percent">22.14%</div>
+                                </div>
+                            </div>
+                            <div class="contributor" onclick="viewContributorDetails('Other')">
+                                <div class="contributor-avatar" style="background: #333;"></div>
+                                <div>
+                                    <div class="contributor-amount">$45,387</div>
+                                    <div class="contributor-percent">8.58%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid">
+                        <!-- Left Column - Platform Values -->
+                        <div class="card">
+                            <div class="card-header">
+                                <button class="filter-btn" onclick="openSortMenu()">☰ ›</button>
+                                <button class="filter-btn" onclick="openFiltersPanel()">Filters ☰</button>
+                                <button class="filter-btn" onclick="openChartView()">📊 ›</button>
+                            </div>
+
+                            <div class="platform-item" onclick="viewPlatformDetails('Dribbble')">
+                                <div class="platform-name">
+                                    <span style="color: #ea4c89;">●</span>
+                                    Dribbble
+                                </div>
+                                <div>
+                                    <span class="platform-amount">$227,459</span>
+                                    <span class="platform-percent">43%</span>
+                                </div>
+                            </div>
+
+                            <div class="platform-item" onclick="viewPlatformDetails('Instagram')">
+                                <div class="platform-name">
+                                    <span style="color: #e4405f;">●</span>
+                                    Instagram
+                                </div>
+                                <div>
+                                    <span class="platform-amount">$142,823</span>
+                                    <span class="platform-percent">27%</span>
+                                </div>
+                            </div>
+
+                            <div class="platform-item" onclick="viewPlatformDetails('Behance')">
+                                <div class="platform-name">
+                                    <span style="color: #1da1f2;">●</span>
+                                    Behance
+                                </div>
+                                <div>
+                                    <span class="platform-amount">$89,935</span>
+                                    <span class="platform-percent">11%</span>
+                                </div>
+                            </div>
+
+                            <div class="platform-item" onclick="viewPlatformDetails('Google')">
+                                <div class="platform-name">
+                                    <span style="color: #4285f4;">●</span>
+                                    Google
+                                </div>
+                                <div>
+                                    <span class="platform-amount">$37,028</span>
+                                    <span class="platform-percent">7%</span>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 24px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white; cursor: pointer;" onclick="viewPlatformValue()">
+                                <div style="font-size: 12px; margin-bottom: 8px;">Platform value</div>
+                                <div style="font-size: 24px; font-weight: 600;">$19,532</div>
+                                <div style="font-size: 12px; margin-top: 4px;">Won/loss<br>373 / 276</div>
+                            </div>
+                        </div>
+
+                        <!-- Middle Column - Chart -->
+                        <div class="card">
+                            <div style="text-align: center; padding: 40px 0;">
+                                <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; cursor: pointer;" onclick="expandChart()">
+                                    📊
+                                </div>
+                                <div style="font-size: 14px; color: #666; margin-bottom: 20px; cursor: pointer;" onclick="changeCategory()">Deals amount<br>by referrer category ›</div>
+                                
+                                <div class="chart-bars">
+                                    <div class="bar" style="height: 40%;" onclick="viewBarDetails(1)">
+                                        <div class="bar-label">$11,035</div>
+                                    </div>
+                                    <div class="bar" style="height: 60%; background: rgba(255,255,255,0.3);" onclick="viewBarDetails(2)">
+                                        <div class="bar-label">$9,283</div>
+                                    </div>
+                                    <div class="bar" style="height: 80%; background: rgba(255,255,255,0.15);" onclick="viewBarDetails(3)"></div>
+                                    <div class="bar" style="height: 50%; background: rgba(255,255,255,0.15);" onclick="viewBarDetails(4)"></div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
+                                    <button style="padding: 8px 16px; background: #000; color: white; border: none; border-radius: 6px; cursor: pointer;" onclick="switchChartView('revenue')" id="revenueBtn">Revenue</button>
+                                    <button style="padding: 8px 16px; background: #f5f5f5; border: none; border-radius: 6px; cursor: pointer;" onclick="switchChartView('leads')" id="leadsBtn">Leads</button>
+                                    <button style="padding: 8px 16px; background: #f5f5f5; border: none; border-radius: 6px; cursor: pointer;" onclick="switchChartView('wl')" id="wlBtn">W/L</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column - Stats & Chart -->
+                        <div>
+                            <div class="stat-card" style="margin-bottom: 16px;" onclick="viewTopSales()">
+                                <div class="stat-label">Top sales</div>
+                                <div class="stat-value">72</div>
+                                <div style="margin-top: 8px;">
+                                    <div class="user-avatar" style="width: 24px; height: 24px; display: inline-block; background: #06b6d4;"></div>
+                                    <span style="font-size: 13px; margin-left: 8px;">Mikasa</span>
+                                </div>
+                            </div>
+
+                            <div class="stat-card" style="background: #1a1a1a; color: white; margin-bottom: 16px; cursor: pointer;" onclick="viewBestDeal()">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-size: 12px; opacity: 0.7; margin-bottom: 8px;">Best deal</div>
+                                        <div style="font-size: 24px; font-weight: 600;">$42,300</div>
+                                        <div style="font-size: 13px; margin-top: 4px;">Roll Inc.</div>
+                                    </div>
+                                    <span style="font-size: 20px;">⭐</span>
+                                </div>
+                            </div>
+
+                            <div class="stat-card" onclick="viewAllDeals()">
+                                <div class="stat-label">Deals</div>
+                                <div class="stat-value">253</div>
+                                <div style="font-size: 12px; color: #666; margin-top: 4px; cursor: pointer;" onclick="event.stopPropagation(); viewFavorites()">♥ 5</div>
+                            </div>
+
+                            <div class="table-container" style="margin-top: 16px;">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th style="cursor: pointer;" onclick="sortTable('sales')">Sales ↕</th>
+                                            <th style="cursor: pointer;" onclick="sortTable('revenue')">Revenue ↕</th>
+                                            <th style="cursor: pointer;" onclick="sortTable('leads')">Leads ↕</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr onclick="viewSalesPersonDetails('Armin')">
+                                            <td>
+                                                <div class="table-avatar">
+                                                    <div class="avatar" style="background: #8b5cf6;"></div>
+                                                    <span>Armin A.</span>
+                                                </div>
+                                            </td>
+                                            <td>$209,633</td>
+                                            <td><span class="stat-badge" style="background: #1a1a1a; color: white;">118</span></td>
+                                        </tr>
+                                        <tr onclick="viewSalesPersonDetails('Mikasa')">
+                                            <td>
+                                                <div class="table-avatar">
+                                                    <div class="avatar" style="background: #06b6d4;"></div>
+                                                    <span>Mikasa A.</span>
+                                                </div>
+                                            </td>
+                                            <td>$156,841</td>
+                                            <td><span class="stat-badge" style="background: #1a1a1a; color: white;">103</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div style="margin-top: 20px;">
+                                    <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                                        <span class="stat-badge" style="background: #fef3c7; color: #92400e; cursor: pointer;" onclick="viewTopSales()">Top sales</span>
+                                        <span class="stat-badge" style="background: #fee2e2; color: #991b1b; cursor: pointer;" onclick="viewSalesStreak()">Sales streak</span>
+                                        <span class="stat-badge" style="background: #dbeafe; color: #1e40af; cursor: pointer;" onclick="viewTopReview()">Top review</span>
+                                    </div>
+
+                                    <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px;">Work with platforms</div>
+
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #fef3c7; border-radius: 8px; margin-bottom: 8px; cursor: pointer;" onclick="viewPlatformDetails('Dribbble')">
+                                        <span style="color: #ea4c89;">●</span>
+                                        <span style="font-size: 14px;">Dribbble</span>
+                                    </div>
+
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #fef3c7; border-radius: 8px; cursor: pointer;" onclick="viewPlatformDetails('Instagram')">
+                                        <span style="color: #e4405f;">●</span>
+                                        <span style="font-size: 14px;">Instagram</span>
+                                    </div>
+
+                                    <div style="margin-top: 20px; padding: 16px; background: #f5f5f5; border-radius: 8px; cursor: pointer;" onclick="viewSalesDynamic()">
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                            <span style="font-size: 24px; font-weight: 600;">45.3%</span>
+                                            <span style="font-size: 18px; color: #ccc;">$71,048</span>
+                                        </div>
+                                        <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Sales dynamic</div>
+                                        <div style="height: 60px; background: linear-gradient(to right, #fee2e2, #fecaca); border-radius: 4px; position: relative;">
+                                            <svg width="100%" height="100%" style="position: absolute;">
+                                                <polyline points="0,40 20,35 40,30 60,25 80,30 100,20" fill="none" stroke="#ef4444" stroke-width="2"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Pages -->
+                <div id="starred" class="page-container dashboard-page">
+                    <h1>⭐ Starred Items</h1>
+                    <p>Your favorite reports and dashboards</p>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="showPage('new-report')">View All Reports</button>
+                        <button class="btn btn-secondary" onclick="openAddModal()">Add to Starred</button>
+                    </div>
+                </div>
+
+                <div id="recent" class="page-container dashboard-page">
+                    <h1>🕐 Recent Activity</h1>
+                    <p>Your recently accessed reports and dashboards</p>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="showPage('new-report')">Latest Report</button>
+                        <button class="btn btn-secondary" onclick="clearRecent()">Clear History</button>
+                    </div>
+                </div>
+
+                <div id="goals" class="page-container dashboard-page">
+                    <h1>🎯 Goals Dashboard</h1>
+                    <p>Track your sales goals and performance metrics</p>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="createGoal()">Create New Goal</button>
+                        <button class="btn btn-secondary" onclick="showPage('dashboard')">View Dashboard</button>
+                    </div>
+                </div>
+
+                <div id="dashboard" class="page-container dashboard-page">
+                    <h1>📊 Main Dashboard</h1>
+                    <p>Overview of all your key metrics and KPIs</p>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="showPage('new-report')">Create Report</button>
+                        <button class="btn btn-secondary" onclick="exportData()">Export Data</button>
+                    </div>
+                </div>
+
+                <div id="shared" class="page-container dashboard-page">
+                    <h1>👥 Shared With Me</h1>
+                    <p>Reports and documents shared by your team</p>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="viewSharedItems()">View All</button>
+                        <button class="btn btn-secondary" onclick="shareReport()">Share Report</button>
+                    </div>
+                </div>
+
+                <div id="analytics" class="page-container dashboard-page">
+                    <h1>📈 Analytics</h1>
+                    <p>Deep dive into your analytics and insights</p>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="showPage('new-report')">View Reports</button>
+                        <button class="btn btn-secondary" onclick="customizeAnalytics()">Customize View</button>
+                    </div>
+                </div>
+
+                <div id="home" class="page-container dashboard-page">
+                    <h1>🏠 Welcome to Codename</h1>
+                    <p>Your central hub for all sales and analytics</p>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="showPage('new-report')">Get Started</button>
+                        <button class="btn btn-secondary" onclick="takeTour()">Take a Tour</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header" id="modalTitle">Modal Title</div>
+            <div class="modal-body" id="modalBody">Modal content goes here</div>
+            <div class="modal-footer">
+                <button class="btn close-modal" onclick="closeModal()">Close</button>
+                <button class="btn btn-primary" id="modalAction" onclick="closeModal()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
